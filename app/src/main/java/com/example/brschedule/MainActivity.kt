@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnF8: ImageButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ScheduleAdapter
+    private lateinit var fabToday: ExtendedFloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         btnF6 = findViewById(R.id.btnF6)
         btnF8 = findViewById(R.id.btnF8)
         recyclerView = findViewById(R.id.recyclerView)
+        fabToday = findViewById(R.id.fabToday)
 
         setupSpinner()
         setupRecyclerView()
@@ -60,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             val type = object : TypeToken<MutableList<Worker>>() {}.type
             workers = gson.fromJson(workersJson, type)
             
-            // If we updated the code to 10 but user has only 4 in prefs, add the missing ones
             if (workers.size < 10) {
                 for (i in workers.size until 10) {
                     workers.add(Worker(i, "Пользователь ${i + 1}"))
@@ -127,6 +129,10 @@ class MainActivity : AppCompatActivity() {
             isLocked = !isLocked
             updateLockState()
             saveData()
+        }
+
+        fabToday.setOnClickListener {
+            recyclerView.scrollToPosition(5000)
         }
     }
 
