@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val gson = Gson()
     private var workers = mutableListOf<Worker>()
     private var currentWorkerIndex = 0
-    private var isLocked = true
+    private var isLocked = false
 
     private lateinit var workerSpinner: Spinner
     private lateinit var btnF5: ImageButton
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
         currentWorkerIndex = prefs.getInt("current_worker_index", 0)
-        isLocked = prefs.getBoolean("is_locked", true)
+        isLocked = prefs.getBoolean("is_locked", false)
     }
 
     private fun saveData() {
