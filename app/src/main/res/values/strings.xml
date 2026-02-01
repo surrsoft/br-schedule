@@ -2,4 +2,5 @@
     <string name="app_name">BrSchedule</string>
     <string name="action_about">О приложении</string>
     <string name="action_rename">Переименовать работника</string>
+    <string name="label_shift">сдвиг:</string>
 </resources>
