@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/workerSpinner">
 
         <ImageButton
-            android:id="@+id/btnShiftUp"
+            android:id="@+id/btnF5"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@android:drawable/arrow_up_float"
@@ -41,7 +41,7 @@
             android:background="?attr/selectableItemBackgroundBorderless" />
 
         <ImageButton
-            android:id="@+id/btnShiftDown"
+            android:id="@+id/btnF6"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@android:drawable/arrow_down_float"
@@ -54,7 +54,7 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/btnLock"
+            android:id="@+id/btnF8"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_lock_open"

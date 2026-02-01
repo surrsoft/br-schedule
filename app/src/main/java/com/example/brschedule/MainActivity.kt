@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
     private var isLocked = true
 
     private lateinit var workerSpinner: Spinner
-    private lateinit var btnShiftUp: ImageButton
-    private lateinit var btnShiftDown: ImageButton
-    private lateinit var btnLock: ImageButton
+    private lateinit var btnF5: ImageButton
+    private lateinit var btnF6: ImageButton
+    private lateinit var btnF8: ImageButton
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ScheduleAdapter
 
@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         workerSpinner = findViewById(R.id.workerSpinner)
-        btnShiftUp = findViewById(R.id.btnShiftUp)
-        btnShiftDown = findViewById(R.id.btnShiftDown)
-        btnLock = findViewById(R.id.btnLock)
+        btnF5 = findViewById(R.id.btnF5)
+        btnF6 = findViewById(R.id.btnF6)
+        btnF8 = findViewById(R.id.btnF8)
         recyclerView = findViewById(R.id.recyclerView)
 
         setupSpinner()
@@ -81,9 +81,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, workers.map { it.name })
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        workerSpinner.adapter = adapter
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, workers.map { it.name })
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        workerSpinner.adapter = spinnerAdapter
         workerSpinner.setSelection(currentWorkerIndex)
 
         workerSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -101,23 +101,23 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         adapter.setOffset(workers[currentWorkerIndex].offset)
-        recyclerView.scrollToPosition(5000) // Scroll to "today" area
+        recyclerView.scrollToPosition(5000)
     }
 
     private fun setupControls() {
-        btnShiftUp.setOnClickListener {
+        btnF5.setOnClickListener {
             workers[currentWorkerIndex].offset--
             adapter.setOffset(workers[currentWorkerIndex].offset)
             saveData()
         }
 
-        btnShiftDown.setOnClickListener {
+        btnF6.setOnClickListener {
             workers[currentWorkerIndex].offset++
             adapter.setOffset(workers[currentWorkerIndex].offset)
             saveData()
         }
 
-        btnLock.setOnClickListener {
+        btnF8.setOnClickListener {
             isLocked = !isLocked
             updateLockState()
             saveData()
@@ -125,19 +125,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateLockState() {
-        btnShiftUp.isEnabled = !isLocked
-        btnShiftDown.isEnabled = !isLocked
+        btnF5.isEnabled = !isLocked
+        btnF6.isEnabled = !isLocked
         
         val alpha = if (isLocked) 0.5f else 1.0f
-        btnShiftUp.alpha = alpha
-        btnShiftDown.alpha = alpha
+        btnF5.alpha = alpha
+        btnF6.alpha = alpha
 
         if (isLocked) {
-            btnLock.setImageResource(R.drawable.ic_lock_closed)
-            btnLock.setColorFilter(ContextCompat.getColor(this, R.color.black))
+            btnF8.setImageResource(R.drawable.ic_lock_closed)
+            btnF8.setColorFilter(ContextCompat.getColor(this, android.R.color.darker_gray))
         } else {
-            btnLock.setImageResource(R.drawable.ic_lock_open)
-            btnLock.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary))
+            btnF8.setImageResource(R.drawable.ic_lock_open)
+            btnF8.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary))
         }
     }
 
@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity() {
             val newName = input.text.toString().trim()
             if (newName.isNotEmpty() && newName.length <= 50) {
                 workers[currentWorkerIndex].name = newName
-                setupSpinner() // Refresh spinner
+                setupSpinner()
                 saveData()
                 dialog.dismiss()
             } else {
