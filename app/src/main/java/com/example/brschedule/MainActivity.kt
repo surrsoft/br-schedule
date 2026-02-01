@@ -59,15 +59,21 @@ class MainActivity : AppCompatActivity() {
         if (workersJson != null) {
             val type = object : TypeToken<MutableList<Worker>>() {}.type
             workers = gson.fromJson(workersJson, type)
+            
+            // If we updated the code to 10 but user has only 4 in prefs, add the missing ones
+            if (workers.size < 10) {
+                for (i in workers.size until 10) {
+                    workers.add(Worker(i, "Пользователь ${i + 1}"))
+                }
+            }
         } else {
-            workers = mutableListOf(
-                Worker(0, "Работник 1"),
-                Worker(1, "Работник 2"),
-                Worker(2, "Работник 3"),
-                Worker(3, "Работник 4")
-            )
+            workers = mutableListOf()
+            for (i in 0 until 10) {
+                workers.add(Worker(i, "Пользователь ${i + 1}"))
+            }
         }
         currentWorkerIndex = prefs.getInt("current_worker_index", 0)
+        if (currentWorkerIndex >= workers.size) currentWorkerIndex = 0
         isLocked = prefs.getBoolean("is_locked", false)
     }
 
@@ -162,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRenameDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Переименовать работника")
+        builder.setTitle("Переименовать пользователя")
 
         val input = EditText(this)
         input.setText(workers[currentWorkerIndex].name)
