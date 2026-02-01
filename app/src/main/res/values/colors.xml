@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="day_shift">#4CAF50</color>
+    <color name="night_shift">#3F51B5</color>
+    <color name="off_shift_1">#FF9800</color>
+    <color name="off_shift_2">#9E9E9E</color>
+    <color name="today_highlight">#2196F3</color>
 </resources>
